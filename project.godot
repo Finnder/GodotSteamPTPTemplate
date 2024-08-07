@@ -1,0 +1,27 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GodotSteamLocalSingleplayerTemplate"
+run/main_scene="res://Scenes/world.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/Basic FPS Player/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Scenes/": "orange",
+"res://Scripts/": "green"
+}
