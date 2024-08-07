@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cv44tvj0o5jcf"]
+[gd_scene load_steps=8 format=3 uid="uid://cv44tvj0o5jcf"]
 
 [ext_resource type="Script" path="res://Scripts/System/SteamManager.gd" id="1_b1cy8"]
 [ext_resource type="Script" path="res://Scripts/LobbyManager.gd" id="2_tpclr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/MenuManager.gd" id="4_07e24"]
 [ext_resource type="Script" path="res://Scripts/MapManager.gd" id="5_qqweo"]
 [ext_resource type="PackedScene" uid="uid://b7pp3skomvnhc" path="res://Scenes/lobby_level.tscn" id="6_1scc6"]
+[ext_resource type="Theme" uid="uid://c4f2loxebxryi" path="res://Assets/Theme/main.tres" id="7_gin60"]
 
 [node name="World" type="Node3D"]
 
@@ -18,32 +19,41 @@ network_manager = NodePath("../NetworkManager")
 map_spawner = NodePath("../MapSpawner")
 map_manager = NodePath("../MapManager")
 menu_manager = NodePath("../MenuManager")
-lobby_v_box_container = NodePath("../CanvasLayer/PublicMultiplayerMenu/ScrollContainer/VBoxContainer")
+lobby_v_box_container = NodePath("../CanvasLayer/Control/PublicMultiplayerMenu/ScrollContainer/VBoxContainer")
 
 [node name="NetworkManager" type="Node" parent="."]
 script = ExtResource("3_hsc1b")
 
-[node name="MenuManager" type="Node" parent="." node_paths=PackedStringArray("main_canvas", "main_menu", "multiplayer_select_menu", "local_multiplayer_menu", "public_multiplayer_menu", "lobby_manager")]
+[node name="MenuManager" type="Node" parent="." node_paths=PackedStringArray("main_canvas", "main_menu", "multiplayer_select_menu", "local_multiplayer_menu", "public_multiplayer_menu", "lobby_manager", "network_manager")]
 script = ExtResource("4_07e24")
 main_canvas = NodePath("../CanvasLayer")
-main_menu = NodePath("../CanvasLayer/MainMenu")
-multiplayer_select_menu = NodePath("../CanvasLayer/MultiplayerSelectMenu")
-local_multiplayer_menu = NodePath("../CanvasLayer/LocalMultiplayerMenu")
-public_multiplayer_menu = NodePath("../CanvasLayer/PublicMultiplayerMenu")
+main_menu = NodePath("../CanvasLayer/Control/MainMenu")
+multiplayer_select_menu = NodePath("../CanvasLayer/Control/MultiplayerSelectMenu")
+local_multiplayer_menu = NodePath("../CanvasLayer/Control/LocalMultiplayerMenu")
+public_multiplayer_menu = NodePath("../CanvasLayer/Control/PublicMultiplayerMenu")
 lobby_manager = NodePath("../LobbyManager")
+network_manager = NodePath("../NetworkManager")
 
 [node name="MapManager" type="Node" parent="."]
 script = ExtResource("5_qqweo")
-
-[node name="MapResourcePreloader" type="ResourcePreloader" parent="MapManager"]
-resources = [PackedStringArray("LobbyScene"), [ExtResource("6_1scc6")]]
+lobby_map = ExtResource("6_1scc6")
 
 [node name="MapSpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../MapContainer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Panel" type="Panel" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_gin60")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -51,16 +61,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="MainMenu" type="Control" parent="CanvasLayer"]
+[node name="MainMenu" type="Control" parent="CanvasLayer/Control"]
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MainMenu"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -73,26 +83,26 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SingleplayerButton" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer"]
+[node name="SingleplayerButton" type="Button" parent="CanvasLayer/Control/MainMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Singleplayer"
 
-[node name="MultiplayerButton" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer"]
+[node name="MultiplayerButton" type="Button" parent="CanvasLayer/Control/MainMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Multiplayer"
 
-[node name="MultiplayerSelectMenu" type="Control" parent="CanvasLayer"]
+[node name="MultiplayerSelectMenu" type="Control" parent="CanvasLayer/Control"]
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MultiplayerSelectMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MultiplayerSelectMenu"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -105,72 +115,105 @@ offset_bottom = -51.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PublicMultiplayerButton" type="Button" parent="CanvasLayer/MultiplayerSelectMenu/VBoxContainer"]
+[node name="PublicMultiplayerButton" type="Button" parent="CanvasLayer/Control/MultiplayerSelectMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Public"
 
-[node name="LocalMultiplayerButton" type="Button" parent="CanvasLayer/MultiplayerSelectMenu/VBoxContainer"]
+[node name="LocalMultiplayerButton" type="Button" parent="CanvasLayer/Control/MultiplayerSelectMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Local
 "
 
-[node name="LocalMultiplayerMenu" type="Control" parent="CanvasLayer"]
+[node name="LocalMultiplayerMenu" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/LocalMultiplayerMenu"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_top = 132.0
+offset_right = 130.0
+offset_bottom = -180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="CanvasLayer/Control/LocalMultiplayerMenu/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Host"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/Control/LocalMultiplayerMenu/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Join"
+
+[node name="PublicMultiplayerMenu" type="Control" parent="CanvasLayer/Control"]
 visible = false
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PublicMultiplayerMenu" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PublicMultiplayerMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PublicMultiplayerMenu"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -48.0
+offset_top = -61.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="HostButton" type="Button" parent="CanvasLayer/PublicMultiplayerMenu/HBoxContainer"]
+[node name="HostButton" type="Button" parent="CanvasLayer/Control/PublicMultiplayerMenu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "HOST"
 
-[node name="RefreshButton" type="Button" parent="CanvasLayer/PublicMultiplayerMenu/HBoxContainer"]
+[node name="RefreshButton" type="Button" parent="CanvasLayer/Control/PublicMultiplayerMenu/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "REFRESH"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PublicMultiplayerMenu"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/PublicMultiplayerMenu"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+offset_left = 453.0
+offset_top = 66.0
+offset_right = 699.0
+offset_bottom = 549.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/PublicMultiplayerMenu"]
 layout_mode = 0
 offset_left = 453.0
 offset_top = 66.0
-offset_right = 735.0
-offset_bottom = 533.0
+offset_right = 701.0
+offset_bottom = 545.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PublicMultiplayerMenu/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PublicMultiplayerMenu/ScrollContainer"]
 layout_mode = 2
 
 [node name="MapContainer" type="Node" parent="."]
 
-[connection signal="pressed" from="CanvasLayer/MainMenu/VBoxContainer/SingleplayerButton" to="MenuManager" method="_on_singleplayer_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/VBoxContainer/MultiplayerButton" to="MenuManager" method="_on_multiplayer_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MultiplayerSelectMenu/VBoxContainer/PublicMultiplayerButton" to="MenuManager" method="_on_public_multiplayer_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MultiplayerSelectMenu/VBoxContainer/LocalMultiplayerButton" to="MenuManager" method="_on_local_multiplayer_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PublicMultiplayerMenu/HBoxContainer/HostButton" to="MenuManager" method="_on_public_host_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/PublicMultiplayerMenu/HBoxContainer/RefreshButton" to="MenuManager" method="_on_refresh_lobby_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MainMenu/VBoxContainer/SingleplayerButton" to="MenuManager" method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MainMenu/VBoxContainer/MultiplayerButton" to="MenuManager" method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerSelectMenu/VBoxContainer/PublicMultiplayerButton" to="MenuManager" method="_on_public_multiplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MultiplayerSelectMenu/VBoxContainer/LocalMultiplayerButton" to="MenuManager" method="_on_local_multiplayer_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/LocalMultiplayerMenu/VBoxContainer/HostButton" to="MenuManager" method="_on_local_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/LocalMultiplayerMenu/VBoxContainer/JoinButton" to="MenuManager" method="_on_local_join_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PublicMultiplayerMenu/HBoxContainer/HostButton" to="MenuManager" method="_on_public_host_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PublicMultiplayerMenu/HBoxContainer/RefreshButton" to="MenuManager" method="_on_refresh_lobby_button_pressed"]

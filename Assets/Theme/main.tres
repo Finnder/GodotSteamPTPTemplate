@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c4f2loxebxryi"]
+
+[ext_resource type="FontFile" uid="uid://cilkvwb1gxv4u" path="res://Assets/Theme/Fonts/Hermit-Regular.otf" id="1_xwq1k"]
+
+[resource]
+default_font = ExtResource("1_xwq1k")
