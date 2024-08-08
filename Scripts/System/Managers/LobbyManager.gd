@@ -1,11 +1,14 @@
 extends Node
 
+
+## INFO: Export variables
 @export var network_manager : Node
 @export var map_spawner : MultiplayerSpawner
 @export var map_manager : Node
 @export var menu_manager : Node
 
 @export_group("Local Lobby")
+var local_lobby_id = 1
 @export var local_addr : String = "127.0.0.1"
 @export var local_port : int = 5000
 @export var local_max_players : int = 4
@@ -15,41 +18,68 @@ var steam_lobby_id = 1
 @export var lobby_v_box_container : VBoxContainer
 @export var steam_local_max_players : int = 4
 
+## INFO: Signals
+signal on_singleplayer_lobby_created
+signal on_local_lobby_created
+signal on_steam_lobby_created
+
 func _ready():
 	map_spawner.spawn_function = map_manager.spawn_map
 
-func setup_local_lobbies():
-	pass
-	
-func create_singleplayer_lobby():
+#region Setup Methods
+func setup_singleplayer_lobby():
 	network_manager.reset_peer()
-	map_spawner.spawn(map_manager.get_lobby_map())
 
-func create_local_lobby():	
-	network_manager.get_peer().create_server(local_port, local_max_players)
-	network_manager.update_multiplayer_peer()
-	map_spawner.spawn(map_manager.get_lobby_map())
-	
-func join_local_lobby():
-	network_manager.get_peer().create_client(local_addr, local_port)
-	network_manager.update_multiplayer_peer()
+func setup_local_lobbies():
+	network_manager.set_peer_mode(network_manager.PeerMode.LOCAL)
+	network_manager.get_peer().peer_connected.connect(_on_local_player_connect_lobby)
+	network_manager.get_peer().peer_disconnected.connect(_on_local_player_disconnect_lobby)
 
 func setup_steam_lobbies():
 	network_manager.set_peer_mode(network_manager.PeerMode.STEAM)
 	network_manager.get_peer().lobby_created.connect(_on_steam_lobby_created)
 	Steam.lobby_match_list.connect(_on_steam_lobby_match_list)
 	open_steam_lobby_list()
+#endregion
 
+#region Creation Methods
+func create_singleplayer_lobby():
+	map_spawner.spawn(map_manager.lobby_scene_path)
+	on_singleplayer_lobby_created.emit()
+
+func create_local_lobby():	
+	var err = network_manager.get_peer().create_server(local_port, local_max_players)
+	if err != OK: print(err)
+	network_manager.update_multiplayer_peer()
+	map_spawner.spawn(map_manager.lobby_scene_path)
+	on_local_lobby_created.emit()
+	
 func create_public_lobby():
 	network_manager.get_peer().create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
-	multiplayer.set_multiplayer_peer(network_manager.get_peer())
-	map_spawner.spawn(map_manager.get_lobby_map())
+	network_manager.update_multiplayer_peer()
+	map_spawner.spawn(map_manager.lobby_scene_path)
+	on_steam_lobby_created.emit()
+#endregion
+	
+#region Join Methods
+func join_local_lobby():
+	var err = network_manager.get_peer().create_client(local_addr, local_port)
+	if err != OK: print(err)
+	network_manager.update_multiplayer_peer()
 
 func join_public_lobby(id):
 	network_manager.get_peer().connect_lobby(id)
 	network_manager.update_multiplayer_peer()
 	menu_manager.hide_main_canvas()
 	steam_lobby_id = id
+#endregion
+
+func _on_local_player_connect_lobby(id):
+	local_lobby_id = id
+	print_rich("Player [color=green]", id, " Joined [/color]")
+	
+func _on_local_player_disconnect_lobby(id):
+	print_rich("Player [color=red]", id, " Disconnected [/color]")
 
 func _on_steam_lobby_created(connected, id):
 	if connected:

@@ -5,4 +5,3 @@ extends Node
 
 func _ready():
 	camera.current = is_multiplayer_authority()
-	print(camera.current)
