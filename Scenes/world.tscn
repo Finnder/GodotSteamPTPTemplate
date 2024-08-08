@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cv44tvj0o5jcf"]
 
-[ext_resource type="Script" path="res://Scripts/System/SteamManager.gd" id="1_b1cy8"]
-[ext_resource type="Script" path="res://Scripts/LobbyManager.gd" id="2_tpclr"]
-[ext_resource type="Script" path="res://Scripts/NetworkManager.gd" id="3_hsc1b"]
-[ext_resource type="Script" path="res://Scripts/MenuManager.gd" id="4_07e24"]
-[ext_resource type="Script" path="res://Scripts/MapManager.gd" id="5_qqweo"]
+[ext_resource type="Script" path="res://Scripts/System/Managers/SteamManager.gd" id="1_b1cy8"]
+[ext_resource type="Script" path="res://Scripts/System/Managers/LobbyManager.gd" id="2_tpclr"]
+[ext_resource type="Script" path="res://Scripts/System/Networking/NetworkManager.gd" id="3_hsc1b"]
+[ext_resource type="Script" path="res://Scripts/System/Managers/MenuManager.gd" id="4_07e24"]
+[ext_resource type="Script" path="res://Scripts/System/Managers/MapManager.gd" id="5_qqweo"]
 [ext_resource type="PackedScene" uid="uid://b7pp3skomvnhc" path="res://Scenes/lobby_level.tscn" id="6_1scc6"]
 [ext_resource type="Theme" uid="uid://c4f2loxebxryi" path="res://Assets/Theme/main.tres" id="7_gin60"]
 

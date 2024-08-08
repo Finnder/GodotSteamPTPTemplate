@@ -24,6 +24,7 @@ func hide_all_menus():
 
 func _on_singleplayer_button_pressed():
 	hide_all_menus()
+	lobby_manager.create_singleplayer_lobby()
 
 func _on_multiplayer_button_pressed():
 	hide_all_menus()

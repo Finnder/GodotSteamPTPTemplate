@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://tv4ar5fv1s6e"]
 
 [ext_resource type="Script" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="1_4m64u"]
-[ext_resource type="Script" path="res://Scripts/PlayerSyncManager.gd" id="2_jonxd"]
+[ext_resource type="Script" path="res://Scripts/System/Networking/PlayerSyncManager.gd" id="2_ujs6x"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_s2iwt"]
 
@@ -15,8 +15,14 @@ properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_4m64u")
+KEY_BIND_UP = "forward"
+KEY_BIND_LEFT = "left"
+KEY_BIND_RIGHT = "right"
+KEY_BIND_DOWN = "down"
+KEY_BIND_JUMP = "jump"
 
 [node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.837283, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
@@ -26,7 +32,7 @@ shape = SubResource("CylinderShape3D_s2iwt")
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 
 [node name="PlayerSyncManager" type="Node" parent="."]
-script = ExtResource("2_jonxd")
+script = ExtResource("2_ujs6x")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_6yngi")

@@ -1,5 +1,7 @@
 extends Node
 
+## INFO: Holds info about steam player and app data
+
 @export var app_id : String = "480"
 
 func _ready():

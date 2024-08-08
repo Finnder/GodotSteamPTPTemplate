@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7pp3skomvnhc"]
 
-[ext_resource type="Script" path="res://Scripts/PlayerSpawner.gd" id="1_gojf1"]
+[ext_resource type="Script" path="res://Scripts/System/Networking/PlayerSpawner.gd" id="1_gojf1"]
 [ext_resource type="PackedScene" uid="uid://tv4ar5fv1s6e" path="res://Scenes/player.tscn" id="2_fehjn"]
 
 [node name="LobbyLevel" type="Node3D"]
@@ -11,3 +11,28 @@ script = ExtResource("1_gojf1")
 player_scene = ExtResource("2_fehjn")
 
 [node name="Players" type="Node" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0229278, -1.34638, 0.0164433)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0812728, -0.111755)
+size = Vector3(7, 0.165527, 6.77649)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.628194, 0.778057, 0, -0.778057, 0.628194, 0, 0, 0)
+
+[node name="PlayerSpawnPoints" type="Node" parent="."]
+
+[node name="Spawn01" type="Node3D" parent="PlayerSpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.64119)
+
+[node name="Spawn02" type="Node3D" parent="PlayerSpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91055, 0, 0.0211345)
+
+[node name="Spawn03" type="Node3D" parent="PlayerSpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0111252, 0, -1.25825)
+
+[node name="Spawn04" type="Node3D" parent="PlayerSpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.82694, 0, -0.0156642)

@@ -71,7 +71,7 @@ func refresh_steam_lobby_list():
 func _on_steam_lobby_match_list(lobbies):
 	for lobby in lobbies:
 		var lobby_name = Steam.getLobbyData(lobby, "name")
-		var lobby_player_count = Steam.getNumLobbyMembers(lobby)
+		#var lobby_player_count = Steam.getNumLobbyMembers(lobby)
 		
 		var btn = Button.new()
 		btn.set_text(str(lobby_name))

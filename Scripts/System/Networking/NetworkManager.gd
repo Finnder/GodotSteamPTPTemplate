@@ -23,5 +23,7 @@ func set_peer_mode(peer_mode : PeerMode):
 		PeerMode.NONE:
 			peer = null
 
+	print_rich("Peer Mode Set To: [color=yellow]", peer_mode, "[/color]")
+
 func reset_peer():
 	set_peer_mode(PeerMode.NONE)
