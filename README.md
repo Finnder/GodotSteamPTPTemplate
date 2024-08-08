@@ -10,6 +10,6 @@
 * Singleplayer Support
 
 ### Resources & What is used in project
-[Godot Steam](https://godotsteam.com)
-Basic FPS Player (Plugin By: sammburr)
-[Documentation](https://finndersblog.netlify.app/)
+* [Godot Steam](https://godotsteam.com)
+* Basic FPS Player (Plugin By: sammburr)
+* [Documentation](https://finndersblog.netlify.app/)
