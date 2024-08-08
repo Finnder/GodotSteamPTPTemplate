@@ -67,7 +67,7 @@ func join_local_lobby():
 	if err != OK: print(err)
 	network_manager.update_multiplayer_peer()
 
-func join_steamG_lobby(id):
+func join_steam_lobby(id):
 	network_manager.get_peer().connect_lobby(id)
 	network_manager.update_multiplayer_peer()
 	menu_manager.hide_main_canvas()
