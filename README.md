@@ -1,4 +1,5 @@
 # Godot Steam PTP Template
+![Diagram](./SteamLocalSingleplayerSolution.drawio.png)
 
 ### Usage:
 * Godot 4.x version required
@@ -12,3 +13,4 @@
 ### Resources & What is used in project
 * [Godot Steam](https://godotsteam.com)
 * Basic FPS Player (Plugin By: sammburr)
+

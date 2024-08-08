@@ -45,7 +45,7 @@ func _on_local_multiplayer_button_pressed():
 
 func _on_public_host_button_pressed():
 	hide_main_canvas()
-	lobby_manager.create_public_lobby()
+	lobby_manager.create_steam_lobby()
 
 func _on_refresh_lobby_button_pressed():
 	lobby_manager.refresh_steam_lobby_list()

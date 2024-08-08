@@ -54,7 +54,7 @@ func create_local_lobby():
 	map_spawner.spawn(map_manager.lobby_scene_path)
 	on_local_lobby_created.emit()
 	
-func create_public_lobby():
+func create_steam_lobby():
 	network_manager.get_peer().create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_PUBLIC)
 	network_manager.update_multiplayer_peer()
 	map_spawner.spawn(map_manager.lobby_scene_path)
@@ -67,7 +67,7 @@ func join_local_lobby():
 	if err != OK: print(err)
 	network_manager.update_multiplayer_peer()
 
-func join_public_lobby(id):
+func join_steamG_lobby(id):
 	network_manager.get_peer().connect_lobby(id)
 	network_manager.update_multiplayer_peer()
 	menu_manager.hide_main_canvas()
@@ -106,5 +106,5 @@ func _on_steam_lobby_match_list(lobbies):
 		var btn = Button.new()
 		btn.set_text(str(lobby_name))
 		btn.set_size(Vector2(100, 5))	
-		btn.connect("pressed", Callable(self, "join_public_lobby").bind(lobby))
+		btn.connect("pressed", Callable(self, "join_steam_lobby").bind(lobby))
 		lobby_v_box_container.add_child(btn)
