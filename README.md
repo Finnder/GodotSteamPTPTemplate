@@ -1,11 +1,12 @@
 # Godot Steam PTP Template
 ![Diagram](./SteamLocalSingleplayerSolution.drawio.png)
 
-### Usage:
-* Godot 4.x version required
-* This is NOT a multiplayer steam solution it's just a template
+### Install:
+* Download ZIP and unzip into project dir and open with godot
+* OR git clone
 
 ## Prerequisites
+* Godot 4.x version required
 * [Godot Steam Peer To Peer](https://godotsteam.com/#download-it)
 
 
