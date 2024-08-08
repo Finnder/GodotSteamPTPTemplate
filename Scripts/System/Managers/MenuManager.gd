@@ -33,13 +33,11 @@ func _on_multiplayer_button_pressed():
 
 func _on_public_multiplayer_button_pressed():
 	hide_all_menus()
-	network_manager.set_peer_mode(network_manager.PeerMode.STEAM)
 	lobby_manager.setup_steam_lobbies()
 	public_multiplayer_menu.show()
 
 func _on_local_multiplayer_button_pressed():
 	hide_all_menus()
-	network_manager.set_peer_mode(network_manager.PeerMode.LOCAL)
 	lobby_manager.setup_local_lobbies()
 	local_multiplayer_menu.show()
 
